@@ -20,6 +20,7 @@ on:
       - production
       - main
 
+
 env:
   JAVA_VERSION: 17
   java_distribution: 'temurin'
