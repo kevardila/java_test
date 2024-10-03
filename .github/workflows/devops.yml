@@ -1,0 +1,41 @@
+---
+name: devops flow implements
+
+on:
+  push:
+    branches:
+      - preprod
+      - hotfix
+      - 'release/**'
+  pull_request:
+    branches:
+      - development
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - 'release/**'
+      - hotfix
+      - preprod
+      - production
+      - main
+
+env:
+  JAVA_VERSION: 17
+  java_distribution: 'temurin'
+  registry_project: 'test-devops'
+  registry_repository: 'jar-artifact'
+  node_version: 18
+
+
+jobs:
+  nuamx_devops_access_point:
+    uses: nuamx/devops_resources/.github/workflows/CI-devops_init.yml@feat/ARQPD-1303
+    with:
+      project_type: 'backend'
+      language: 'java'
+      java_version: ${{  env.JAVA_VERSION  }}
+      java_distribution: ${{env.java_distribution }}
+      registry_project: ${{ env.registry_repository }}
+      registry_repository: ${{ env.registry_repository }}
+      node_version: ${{env.node_version}}
